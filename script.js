@@ -32,10 +32,33 @@ function login() {
 
 function logout() {
     document.getElementById('login-form').style.display = 'block';
+    document.getElementById('register-form').style.display = 'block';
     document.getElementById('admin-panel').style.display = 'none';
     document.getElementById('user-panel').style.display = 'none';
     document.getElementById('username').value = '';
     document.getElementById('password').value = '';
+    document.getElementById('new-username').value = '';
+    document.getElementById('new-password').value = '';
+}
+
+function registerUser() {
+    const newUsername = document.getElementById('new-username').value;
+    const newPassword = document.getElementById('new-password').value;
+    const registerError = document.getElementById('register-error');
+
+    // Перевірка на наявність імені користувача
+    if (users[newUsername]) {
+        registerError.innerText = 'Користувач з таким ім\'ям вже існує.';
+        return;
+    }
+
+    // Додавання нового користувача
+    users[newUsername] = { password: newPassword, isAdmin: false, isLocked: false };
+    registerError.innerText = '';
+    alert('Користувача зареєстровано!');
+    document.getElementById('new-username').value = '';
+    document.getElementById('new-password').value = '';
+    document.getElementById('register-form').style.display = 'none';
 }
 
 function changePassword() {
